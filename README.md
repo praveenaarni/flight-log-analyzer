@@ -1,5 +1,7 @@
 # Flight Log Analyzer
 
+[![CI](https://github.com/praveenaarni/flight-log-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/praveenaarni/flight-log-analyzer/actions/workflows/ci.yml)
+
 Reads CSV flight logs from drones and rockets, computes per-channel statistics, and flags
 anomalies such as limit violations, sensor spikes, flatlined sensors, and data dropouts.
 Written in modern Java (21) with records, sealed interfaces, and the Streams API.
