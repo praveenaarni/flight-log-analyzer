@@ -2,6 +2,7 @@ package com.praveena.flightlog.cli;
 
 import com.praveena.flightlog.parse.CsvFlightLogReader;
 import com.praveena.flightlog.parse.ParseIssue;
+import com.praveena.flightlog.stats.StatsCalculator;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
@@ -50,6 +51,13 @@ public final class FlightLogCli implements Callable<Integer> {
         for (ParseIssue issue : result.issues()) {
             System.out.printf("  line %d: %s%n", issue.lineNumber(), issue.reason());
         }
+
+        System.out.println();
+        System.out.printf("%-20s %6s %10s %10s %10s %10s %10s%n",
+                "channel", "count", "min", "max", "mean", "stddev", "p99");
+        StatsCalculator.compute(result.samples()).forEach((channel, s) ->
+                System.out.printf("%-20s %6d %10.3f %10.3f %10.3f %10.3f %10.3f%n",
+                        channel, s.count(), s.min(), s.max(), s.mean(), s.stdDev(), s.p99()));
         return 0;
     }
 }
